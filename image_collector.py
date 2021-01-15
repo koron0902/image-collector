@@ -44,9 +44,8 @@ class GoogleImageSerch(object):
             # search
             html = self.session.get(next(generate_query)).text
             soup = BeautifulSoup(html, "lxml")
-            elements = soup.select(".rg_meta.notranslate")
-            jsons = [json.loads(e.get_text()) for e in elements]
-            image_url_list = [js["ou"] for js in jsons]
+            elements = soup.select("img.rg_i.Q4LuWd[data-src]")
+            image_url_list = [elm["data-src"] for elm in elements]
 
             # add search results
             if not image_url_list:
